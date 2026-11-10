@@ -15,13 +15,13 @@ def post_to_instagram(image_url, caption):
         response = requests.post(url, data=payload, timeout=30)
         print(f"Статус-код создания контейнера: {response.status_code}")
         result = response.json()
-        print(f"Ответ от API (создание): {result}")
+        print(f"Ответ от API: {result}")
     except Exception as e:
-        print(f"Критическая ошибка при создании контейнера: {e}")
+        print(f"Критическая ошибка: {e}")
         return
         
     if 'id' not in result:
-        print(f"❌ ОШИБКА: Не удалось создать контейнер. Полный ответ: {result}")
+        print(f"❌ ОШИБКА: Не удалось создать контейнер. Проверь ссылку на картинку.")
         return
         
     creation_id = result['id']
@@ -32,12 +32,15 @@ def post_to_instagram(image_url, caption):
     
     try:
         publish_response = requests.post(publish_url, data=publish_payload, timeout=30)
-        print(f"Статус-код публикации: {publish_response.status_code}")
         print(f"Результат публикации: {publish_response.json()}")
     except Exception as e:
         print(f"Критическая ошибка при публикации: {e}")
 
 if __name__ == "__main__":
-    TEST_IMAGE_URL = "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000&auto=format&fit=crop"
-    TEST_CAPTION = "Доброе утро! ☕️ Начинаю свой день с чашки идеального кофе. #IZVEST_AI #утро"
-    post_to_instagram(TEST_IMAGE_URL, TEST_CAPTION)
+    # Ссылка на картинку с твоей IZVEST_AI
+    IMAGE_URL = "https://raw.githubusercontent.com/andreyizmestez12-design/izvest-bot/main/01a1c6bd-8494-7cf0-a9fb-7769a45cf43d.png"
+    
+    # Текст поста
+    CAPTION = "Тихое парижское утро. ☕️📖 Иногда лучшая роскошь — это хорошая книга и чашка кофе. Что читаете вы? #IZVEST_AI #AIInfluencer #Paris"
+    
+    post_to_instagram(IMAGE_URL, CAPTION)
